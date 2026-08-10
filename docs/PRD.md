@@ -6,11 +6,15 @@ Concept Art to Separate 3D Models
 
 ## 2. Product Goal
 
-The product allows a user to upload one concept artwork, split the artwork into independent parts with AI assistance, generate multiview reference images for each part, create separate 3D models through Tripo, preview and review each model in the browser, and download approved models as OBJ and FBX files.
+The product allows a local single user to upload one concept artwork, split the artwork into independent parts with AI assistance, generate multiview reference images for each part, create separate 3D models through Tripo, preview and review each model in the browser, and download approved models as OBJ and FBX files.
 
 The product does not assemble the separate models into one complete character or scene.
 
-## 3. Target Users
+## 3. Runtime Scope
+
+The current version does not include user login, account management, roles, teams, organizations, or multi-user collaboration.
+
+## 4. Target Users
 
 - Concept artists
 - 3D artists
@@ -18,9 +22,9 @@ The product does not assemble the separate models into one complete character or
 - Animation and visual development teams
 - Independent creators who need draft 3D assets from concept images
 
-## 4. Core User Workflow
+## 5. Core User Workflow
 
-### 4.1 Create Project
+### 5.1 Create Project
 
 The user creates a project and enters:
 
@@ -31,7 +35,7 @@ The user creates a project and enters:
 - Whether PBR materials are required
 - Maximum model file size
 
-### 4.2 Upload Concept Artwork
+### 5.2 Upload Concept Artwork
 
 The user uploads one artwork.
 
@@ -44,10 +48,10 @@ Supported formats:
 Initial limits:
 
 - Maximum file size: 20 MB
-- Maximum image dimensions: 8192 × 8192
+- Maximum image dimensions: 8192 x 8192
 - One source artwork per project
 
-### 4.3 Analyze and Decompose Artwork
+### 5.3 Analyze and Decompose Artwork
 
 The system sends the artwork and user instructions to OpenAI.
 
@@ -64,7 +68,7 @@ OpenAI returns a structured decomposition result containing:
 - Recommended triangle count
 - Whether user review is required
 
-### 4.4 Review Decomposition
+### 5.4 Review Decomposition
 
 The user can:
 
@@ -81,7 +85,7 @@ The user can:
 
 The system must not begin paid model generation before the part list is approved.
 
-### 4.5 Generate Part Reference Image
+### 5.5 Generate Part Reference Image
 
 For each approved part, the system generates an isolated reference image.
 
@@ -95,7 +99,7 @@ Requirements:
 - No unrelated objects
 - New generation creates a new image version
 
-### 4.6 Generate Multiview Images
+### 5.6 Generate Multiview Images
 
 For each part, the system generates:
 
@@ -116,7 +120,7 @@ Requirements:
 
 The user can review and regenerate the multiview images before submitting them to Tripo.
 
-### 4.7 Generate 3D Model
+### 5.7 Generate 3D Model
 
 After the multiview images are approved, the system submits them to Tripo.
 
@@ -130,7 +134,7 @@ The system must:
 - Save the GLB in private object storage
 - Never rely on a temporary provider URL for permanent access
 
-### 4.8 Analyze Model
+### 5.8 Analyze Model
 
 After downloading the GLB, the system analyzes:
 
@@ -152,7 +156,7 @@ Possible check results:
 - Warning
 - Failed
 
-### 4.9 Preview and Review Model
+### 5.9 Preview and Review Model
 
 The user previews the GLB in the browser.
 
@@ -194,7 +198,7 @@ The user can:
 - Add regeneration instructions
 - Generate a new model version
 
-### 4.10 Export and Download
+### 5.10 Export and Download
 
 OBJ and FBX exports are created only after the user approves a specific model version.
 
@@ -205,7 +209,7 @@ The system must:
 - Store exports in private object storage
 - Enable download only after validation succeeds
 - Create short-lived signed download URLs
-- Check user permissions before every download
+- Issue download URLs only for approved model versions and validated exports
 
 OBJ delivery should be packaged as a ZIP containing:
 
@@ -216,7 +220,7 @@ OBJ delivery should be packaged as a ZIP containing:
 
 FBX should be delivered as an FBX file or ZIP package when additional texture files are required.
 
-## 5. Project Statuses
+## 6. Project Statuses
 
 - DRAFT
 - ARTWORK_UPLOADED
@@ -228,7 +232,7 @@ FBX should be delivered as an FBX file or ZIP package when additional texture fi
 - FAILED
 - CANCELED
 
-## 6. Part Statuses
+## 7. Part Statuses
 
 - PENDING
 - REFERENCE_GENERATING
@@ -247,7 +251,7 @@ FBX should be delivered as an FBX file or ZIP package when additional texture fi
 - FAILED
 - CANCELED
 
-## 7. Model Version Rules
+## 8. Model Version Rules
 
 - Every model generation creates a new version.
 - A new version must not overwrite an old version.
@@ -256,7 +260,7 @@ FBX should be delivered as an FBX file or ZIP package when additional texture fi
 - Previous rejected models remain available in project history.
 - The user may compare previous model versions.
 
-## 8. Error Handling
+## 9. Error Handling
 
 The system must provide understandable errors for:
 
@@ -275,11 +279,11 @@ The system must provide understandable errors for:
 - OBJ conversion failure
 - FBX conversion failure
 - Export validation failure
-- Unauthorized review or download
+- Invalid review or download request
 
 Failure of one part must not stop other parts.
 
-## 9. Usage and Cost Controls
+## 10. Usage and Cost Controls
 
 The system should support:
 
@@ -287,11 +291,11 @@ The system should support:
 - Maximum model generations per part
 - Maximum concurrent Tripo tasks
 - Maximum concurrent image-generation tasks
-- Per-user daily usage limit
+- Daily usage limit
 - Per-project cost estimate
 - Provider request audit records
 
-## 10. Pages
+## 11. Pages
 
 ### Project List
 
@@ -336,10 +340,14 @@ The system should support:
 - Download FBX package
 - Download all available formats
 
-## 11. Out of Scope
+## 12. Out of Scope
 
 The first version will not include:
 
+- User login
+- Account management
+- Roles, teams, or organizations
+- Multi-user collaboration
 - Automatic assembly of separate parts
 - Model alignment between parts
 - Shared coordinate-system generation
@@ -352,9 +360,8 @@ The first version will not include:
 - Scene editing
 - Combined export of all parts
 - Automatic retopology beyond provider-supported parameters
-- Multi-user real-time collaboration
 
-## 12. Initial Success Metrics
+## 13. Initial Success Metrics
 
 - A user can complete the full workflow without developer intervention.
 - Failed parts can be retried independently.

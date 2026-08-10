@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository implements a web application that converts concept artwork into separate 3D models.
+This repository implements a local single-user web application that converts one concept artwork into separate 3D models.
 
 The main workflow is:
 
@@ -21,6 +21,12 @@ The main workflow is:
 13. The user downloads validated OBJ and FBX files.
 
 The application does not assemble the generated parts into one model.
+
+## Runtime Scope
+
+- The current product version is local single-user software.
+- Do not implement user login, accounts, roles, teams, organizations, or multi-user collaboration.
+- Do not add project sharing or collaboration features.
 
 ## Technology Stack
 
@@ -67,7 +73,7 @@ The application does not assemble the generated parts into one model.
 9. Previous model versions must not be overwritten.
 10. Provider temporary URLs must be downloaded into the application's own object storage.
 11. API keys must never be sent to the browser.
-12. Download authorization must be enforced by the backend.
+12. Download eligibility must be enforced by the backend.
 13. Models must not be downloadable before user approval.
 14. OBJ and FBX exports must be validated before download is enabled.
 15. Do not implement part assembly, rigging, animation, or scene composition.
@@ -84,7 +90,7 @@ The application does not assemble the generated parts into one model.
 - Use dependency injection for provider implementations.
 - Handle errors explicitly.
 - Log provider request IDs and task IDs without logging API keys.
-- Add tests for status transitions, permissions, paid operations, and retries.
+- Add tests for status transitions, download eligibility, paid operations, and retries.
 
 ## State and Workflow Rules
 
@@ -100,11 +106,11 @@ The application does not assemble the generated parts into one model.
 
 - Never commit `.env` files or real credentials.
 - Never expose OpenAI or Tripo keys in browser bundles.
-- Validate upload type, size, and ownership.
+- Validate upload type, size, and image dimensions.
 - Store generated files in private object storage.
 - Generate short-lived signed download URLs.
-- Validate user permissions before model review, export, or download.
-- Add rate limits and per-project usage limits.
+- Enable downloads only for approved model versions and validated exports.
+- Add rate limits and per-project usage limits for paid operations.
 - Use timeouts for all external requests.
 - Do not log full provider authorization headers.
 
@@ -150,5 +156,5 @@ A task is complete only when:
 - Use descriptive commit messages such as:
   - `feat: add project creation flow`
   - `fix: prevent duplicate Tripo submissions`
-  - `test: cover model approval permissions`
+  - `test: cover model approval rules`
   - `docs: update model export workflow`
