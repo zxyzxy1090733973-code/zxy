@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
@@ -14,6 +15,21 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "outDir": "dist",
+    "paths": {
+      "@concept-to-model/application": ["packages/application/src/index.ts"],
+      "@concept-to-model/contracts": ["packages/contracts/src/index.ts"],
+      "@concept-to-model/domain": ["packages/domain/src/index.ts"],
+      "@concept-to-model/infrastructure": [
+        "packages/infrastructure/src/index.ts"
+      ],
+      "@concept-to-model/openai-integration": [
+        "packages/integrations/openai/src/index.ts"
+      ],
+      "@concept-to-model/prompts": ["packages/prompts/src/index.ts"],
+      "@concept-to-model/tripo-integration": [
+        "packages/integrations/tripo/src/index.ts"
+      ]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
