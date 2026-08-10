@@ -1,0 +1,24 @@
+{
+  "name": "@concept-to-model/infrastructure",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No tests yet for @concept-to-model/infrastructure\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@concept-to-model/application": "workspace:*",
+    "@concept-to-model/domain": "workspace:*"
+  }
+}
