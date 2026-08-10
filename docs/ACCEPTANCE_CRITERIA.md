@@ -13,29 +13,35 @@ The repository initialization is accepted when:
 - No real API key exists in tracked files.
 - `.env.example` documents all required environment variables.
 
-## 2. Project Creation
+## 2. Runtime Scope
 
-Given an authenticated user:
+The release is accepted when:
+
+- The application works as local single-user software.
+- No login, account, role, team, organization, or multi-user collaboration feature is implemented.
+
+## 3. Project Creation
+
+The project creation feature is accepted when:
 
 - The user can create a project.
 - The project receives a unique ID.
 - The project starts in `DRAFT`.
 - The project stores default model requirements.
-- Another user cannot read or edit the project without permission.
 
-## 3. Artwork Upload
+## 4. Artwork Upload
 
 The upload feature is accepted when:
 
 - PNG, JPG, JPEG, and WebP uploads succeed.
 - Unsupported formats are rejected.
 - Files above the configured size limit are rejected.
+- Images above the configured dimension limit are rejected.
 - The uploaded file is stored in private object storage.
 - The database stores the object key, MIME type, size, width, and height.
 - The API key for object storage is not exposed to the browser.
-- The user cannot complete an upload for another user's project.
 
-## 4. Artwork Decomposition
+## 5. Artwork Decomposition
 
 The decomposition feature is accepted when:
 
@@ -49,7 +55,7 @@ The decomposition feature is accepted when:
 - The user can retry a failed decomposition.
 - Previous decomposition versions are not overwritten.
 
-## 5. Decomposition Review
+## 6. Decomposition Review
 
 The review feature is accepted when:
 
@@ -60,9 +66,8 @@ The review feature is accepted when:
 - The user can add a missing part.
 - The user can approve the final part list.
 - Model generation cannot begin before approval.
-- Unauthorized users cannot approve the part list.
 
-## 6. Reference Image Generation
+## 7. Reference Image Generation
 
 The feature is accepted when:
 
@@ -74,7 +79,7 @@ The feature is accepted when:
 - Older image versions remain available.
 - The user can choose which image version is active.
 
-## 7. Multiview Generation
+## 8. Multiview Generation
 
 The feature is accepted when:
 
@@ -87,7 +92,7 @@ The feature is accepted when:
 - The user can approve a multiview set before model generation.
 - Tripo generation cannot start without an approved multiview set.
 
-## 8. Tripo Model Generation
+## 9. Tripo Model Generation
 
 The feature is accepted when:
 
@@ -103,7 +108,7 @@ The feature is accepted when:
 - Failed, expired, cancelled, and rejected tasks can be handled separately.
 - A new retry creates a new model version only when appropriate.
 
-## 9. GLB Model Analysis
+## 10. GLB Model Analysis
 
 The feature is accepted when:
 
@@ -119,7 +124,7 @@ The feature is accepted when:
 - The analyzer version is stored.
 - Server-side metrics are treated as authoritative.
 
-## 10. Browser Model Preview
+## 11. Browser Model Preview
 
 The feature is accepted when:
 
@@ -135,21 +140,20 @@ The feature is accepted when:
 - A clear error is shown when loading fails.
 - The page remains usable when the model is large.
 
-## 11. Model Review
+## 12. Model Review
 
 The feature is accepted when:
 
 - A generated model enters `REVIEW_REQUIRED` after analysis.
 - The user can approve a specific model version.
 - The user can reject a specific model version.
-- A review records reviewer, decision, comment, timestamp, and metric snapshot.
+- A review records decision, comment, timestamp, and metric snapshot.
 - A model above a hard triangle limit cannot be approved.
 - Warning-level issues can require explicit confirmation.
 - Rejecting a model does not delete it.
 - Regeneration creates a new model version.
-- Unauthorized users cannot approve or reject models.
 
-## 12. OBJ and FBX Export
+## 13. OBJ and FBX Export
 
 The feature is accepted when:
 
@@ -166,19 +170,18 @@ The feature is accepted when:
 - Validation errors prevent download readiness.
 - Successful exports enter `DOWNLOAD_READY`.
 
-## 13. Download Authorization
+## 14. Download Eligibility
 
 The feature is accepted when:
 
 - Unapproved models cannot be downloaded.
 - Unvalidated exports cannot be downloaded.
-- Unauthorized users cannot obtain download links.
 - Download URLs are short-lived.
 - Download URLs refer to private application storage.
 - Provider temporary URLs are never returned.
 - Download requests reference a specific export ID and model version.
 
-## 14. Queue and Retry Behavior
+## 15. Queue and Retry Behavior
 
 The queue system is accepted when:
 
@@ -191,14 +194,13 @@ The queue system is accepted when:
 - Worker restart does not corrupt workflow state.
 - Duplicate delivery of the same job does not duplicate paid operations.
 
-## 15. Security
+## 16. Security
 
 The system is accepted when:
 
 - No API key appears in frontend source or browser bundles.
 - No `.env` file is tracked by Git.
 - File uploads are validated.
-- Access control is enforced on projects, parts, reviews, exports, and downloads.
 - External HTTP requests have timeouts.
 - Logs do not contain authorization headers.
 - Rate limits exist on paid operations.
@@ -206,7 +208,7 @@ The system is accepted when:
 - Signed download URLs expire.
 - Provider responses are validated before use.
 
-## 16. Automated Tests
+## 17. Automated Tests
 
 The project is accepted for release when:
 
@@ -215,17 +217,17 @@ The project is accepted for release when:
 - OpenAI adapters use mocked provider responses in normal test runs.
 - Tripo adapters use mocked provider responses in normal test runs.
 - Idempotency behavior has automated tests.
-- Download permission checks have automated tests.
+- Download eligibility checks have automated tests.
 - Model approval rules have automated tests.
 - The complete user workflow has a Playwright test.
 - Tests do not require production API credentials.
 - Real provider integration tests are disabled unless explicitly enabled.
 
-## 17. End-to-End Scenario
+## 18. End-to-End Scenario
 
 The main end-to-end flow is accepted when:
 
-1. A user creates a project.
+1. The user creates a project.
 2. The user uploads one valid artwork.
 3. The system produces a decomposition result.
 4. The user edits and approves the parts.
@@ -239,5 +241,5 @@ The main end-to-end flow is accepted when:
 12. The user approves the model.
 13. The system creates OBJ and FBX exports.
 14. Both exports pass validation.
-15. The user receives authorized download links.
+15. The user receives short-lived download links.
 16. Rejecting and regenerating another part does not affect the completed part.
