@@ -16,5 +16,9 @@
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"No tests yet for @concept-to-model/contracts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@concept-to-model/domain": "workspace:*",
+    "zod": "^4.4.3"
   }
 }
