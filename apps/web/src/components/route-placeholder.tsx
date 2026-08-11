@@ -1,3 +1,5 @@
+import { EmptyState } from "./state";
+
 interface RoutePlaceholderProps {
   readonly eyebrow: string;
   readonly title: string;
@@ -14,19 +16,17 @@ export function RoutePlaceholder({
   return (
     <main className="page-shell">
       <section className="route-panel" aria-labelledby="route-title">
-        <p className="eyebrow">{eyebrow}</p>
-        <h1 id="route-title">{title}</h1>
-        <p className="description">{description}</p>
-        {details.length > 0 ? (
-          <dl className="detail-list">
-            {details.map((detail) => (
-              <div key={detail}>
-                <dt>Status</dt>
-                <dd>{detail}</dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
+        <EmptyState
+          eyebrow={eyebrow}
+          title={title}
+          titleId="route-title"
+          description={description}
+          details={details.map((detail, detailIndex) => ({
+            id: `route-detail-${detailIndex}`,
+            label: "Status",
+            value: detail,
+          }))}
+        />
       </section>
     </main>
   );
