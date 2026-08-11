@@ -13,12 +13,18 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "db:generate": "prisma generate --schema prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema prisma/schema.prisma",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"No tests yet for @concept-to-model/infrastructure\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@concept-to-model/application": "workspace:*",
-    "@concept-to-model/domain": "workspace:*"
+    "@concept-to-model/domain": "workspace:*",
+    "@prisma/client": "^6.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.0.0"
   }
 }
