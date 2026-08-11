@@ -45,6 +45,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@concept-to-model/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
       next:
         specifier: ^15.0.0
         version: 15.5.23(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
