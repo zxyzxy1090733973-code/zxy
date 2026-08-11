@@ -1,0 +1,27 @@
+{
+  "name": "@concept-to-model/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node dist/main.js",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No tests yet for @concept-to-model/api\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@concept-to-model/application": "workspace:*",
+    "@concept-to-model/contracts": "workspace:*",
+    "@nestjs/common": "^11.1.9",
+    "@nestjs/core": "^11.1.9",
+    "@nestjs/platform-express": "^11.1.9",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}
