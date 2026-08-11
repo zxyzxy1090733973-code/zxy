@@ -14,7 +14,7 @@ export function RoutePlaceholder({
   details = [],
 }: RoutePlaceholderProps) {
   return (
-    <main className="page-shell">
+    <div className="page-shell">
       <section className="route-panel" aria-labelledby="route-title">
         <EmptyState
           eyebrow={eyebrow}
@@ -28,6 +28,6 @@ export function RoutePlaceholder({
           }))}
         />
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+
+import { AppShell } from "../components";
 
 import "./globals.css";
 
@@ -16,23 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="app-frame">
-          <header className="top-bar">
-            <Link className="brand" href="/">
-              Concept Art Parts
-            </Link>
-            <nav className="route-nav" aria-label="Foundation routes">
-              <Link href="/">Artwork</Link>
-              <Link href="/artworks/example-artwork/decomposition">
-                Decomposition
-              </Link>
-              <Link href="/parts/example-part">Part</Link>
-              <Link href="/models/example-model">Model</Link>
-              <Link href="/models/example-model/exports">Exports</Link>
-            </nav>
-          </header>
+        <AppShell>
           {children}
-        </div>
+        </AppShell>
       </body>
     </html>
   );
